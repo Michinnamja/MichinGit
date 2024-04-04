@@ -1,6 +1,15 @@
 ﻿
 // ColorImageProcessingDoc.cpp: CColorImageProcessingDoc 클래스의 구현
 //
+////// 코드 시작은 190줄 부터입니다
+
+//////
+////// 해당 파일에 코드 다 있습니다 view에서 연결되는 것들 전부 있고 값 입력받는 애들은 dlg에서 MFC로 진행했습니다
+//////
+
+////// 재정의는 openDoc , closeDoc , save 쪽에 했습니다 코드
+
+
 
 #include "pch.h"
 #include "framework.h"
@@ -178,6 +187,8 @@ void CColorImageProcessingDoc::OnFree2D(T memory, int h)
 	delete[] memory;
 }
 
+///// 파일 여는것은 MFC 기능 사용했고 재정의 한 부분은 입력크기 알아내서 메모리 할당입니다. 이미지 파일들의 크기가 전부 다르기때문에 중요합니다.
+
 BOOL CColorImageProcessingDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
 	if (!CDocument::OnOpenDocument(lpszPathName))
@@ -218,6 +229,8 @@ BOOL CColorImageProcessingDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	return TRUE;
 }
 
+//// 프로그램 끌때 메모리 해제 해주었습니다.
+
 void CColorImageProcessingDoc::OnCloseDocument()
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
@@ -232,6 +245,8 @@ void CColorImageProcessingDoc::OnCloseDocument()
 	CDocument::OnCloseDocument();
 }
 
+//// OutImage 메모리 해제를 자주 해주기 때문에 함수로 만들어서 쓰고있습니다. 영상처리 함수 들어갈때 한번씩 지우고 들어가줍니다.
+
 void CColorImageProcessingDoc::OnFreeOutImage()
 {
 	// TODO: 여기에 구현 코드 추가.
@@ -243,6 +258,8 @@ void CColorImageProcessingDoc::OnFreeOutImage()
 		m_outH = m_outW = 0;
 	}	
 }
+
+//// 에러나면 쓰려고 만들어둔 함수 입니다. OutImage가 unsigned char 형으로 메모리 할당 되어있는데 값 넘어가지 않게 캐스팅해서 에러 줄이려고 만들었습니다.
 
 void CColorImageProcessingDoc::OutImageOK()
 {
@@ -268,6 +285,8 @@ void CColorImageProcessingDoc::OutImageOK()
 		}
 }
 
+//// 모든 처리에 기본 . 원본 이미지 출력입니다다
+
 void CColorImageProcessingDoc::OnEqaulImage()
 {
 	// TODO: 여기에 구현 코드 추가.
@@ -288,6 +307,8 @@ void CColorImageProcessingDoc::OnEqaulImage()
 	}
 }
 
+//// 화소값 평균내서 동일하게 만들어 회색이미지에 명암만 있게 만들어줍니다
+
 void CColorImageProcessingDoc::OnGrayScale()
 {
 	// TODO: 여기에 구현 코드 추가.
@@ -306,6 +327,8 @@ void CColorImageProcessingDoc::OnGrayScale()
 		}
 	}
 }
+
+//// 밝기 조절절
 
 void CColorImageProcessingDoc::OnAddImage()
 {
@@ -368,6 +391,8 @@ void CColorImageProcessingDoc::OnAddImage()
 		}
 	}
 }
+
+//// HIS 모델로 명도값만 보정할때 쓰기 유용합니다.
 
 void CColorImageProcessingDoc::OnChageSatur()
 {
@@ -432,6 +457,8 @@ void CColorImageProcessingDoc::OnChageSatur()
 
 }
 
+//// RGB에서 HSI로 변환해주는 함수입니다.
+
 double* CColorImageProcessingDoc::RGB2HSI(int R, int G, int B)
 {
 	// TODO: 여기에 구현 코드 추가.
@@ -459,6 +486,8 @@ double* CColorImageProcessingDoc::RGB2HSI(int R, int G, int B)
 
 	return HSI;
 }
+
+//// HSI 에서 다시 RGB로 변환환
 
 unsigned char* CColorImageProcessingDoc::HSI2RGB(double H, double S, double I)
 {
@@ -521,6 +550,8 @@ unsigned char* CColorImageProcessingDoc::HSI2RGB(double H, double S, double I)
 	return RGB;
 }
 
+//// 얘도 똑같이 HSI TO RGB 인데 DOUBLE로 해줘서 값이 소실되거나 OVERFLOW 되지 않아요 대신에 마지막에 Unsigned Char 형으로 꼭 캐스팅 해주세요요
+
 double* CColorImageProcessingDoc::HSI2RGB2(double H, double S, double I)
 {
 	// TODO: 여기에 구현 코드 추가.
@@ -581,6 +612,8 @@ double* CColorImageProcessingDoc::HSI2RGB2(double H, double S, double I)
 	RGB[2] = B;
 	return RGB;
 }
+
+//// 특정 색상범위만 표현 해주는 함수인데 지금은 오렌지색상에 맞춰져 있어요 다른 값 넣으면 다른 색상 뽑을 수 있습니다.
 
 void CColorImageProcessingDoc::OnPickOrange()
 {
