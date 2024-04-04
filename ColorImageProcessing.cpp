@@ -1,6 +1,7 @@
 ﻿
 // ColorImageProcessing.cpp: 애플리케이션에 대한 클래스 동작을 정의합니다.
 //
+// 이 파일은 잘못올라와서 보시려면 폴더로 가시는걸 추천드립니다
 
 #include "pch.h"
 #include "framework.h"
