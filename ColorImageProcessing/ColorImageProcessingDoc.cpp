@@ -1,9 +1,9 @@
 ﻿
 // ColorImageProcessingDoc.cpp: CColorImageProcessingDoc 클래스의 구현
 //
-////// 코드 시작은 190줄 부터입니다
-
-//////
+////// 화소점 코드 시작은 190줄 부터입니다
+////// 기하학 처리 코드는 1140줄
+////// 화소영역처리 코드는 1400줄
 ////// 해당 파일에 코드 다 있습니다 view에서 연결되는 것들 전부 있고 값 입력받는 애들은 dlg에서 MFC로 진행했습니다
 //////
 
@@ -662,6 +662,9 @@ void CColorImageProcessingDoc::OnPickOrange()
 	}
 }
 
+//// 여기부터는 그냥 화소값 변경하는 함수들입니다다
+//// 다른 개념을 원하면 1140줄 zoomout 부터 화소 위치정보 변경 알고리즘
+
 void CColorImageProcessingDoc::OnBWImage1()
 {
 	// TODO: 여기에 구현 코드 추가.
@@ -1132,6 +1135,8 @@ void CColorImageProcessingDoc::OnEndin()
 	}
 }
 
+//// 기하학처리는 화소점의 위치를 변경해 축소 , 확대 , 회전 등 원래의 이미지를 유지하며 물리적인 이동만 합니다.
+
 void CColorImageProcessingDoc::OnZoomout()
 {
 	// TODO: 여기에 구현 코드 추가.
@@ -1170,6 +1175,9 @@ void CColorImageProcessingDoc::OnZoomout()
 	}
 }
 
+//// 확대는 백워딩 기법 사용했습니다. 포워딩 - 기본이미지를 출력이미지로 옮기는방식  (포워딩은 빵꾸나요)
+////				    백워딩 - 출력할 이미지 위치에 기본이미지 값을 가져오는 방식
+
 void CColorImageProcessingDoc::OnZoomin()
 {
 	// TODO: 여기에 구현 코드 추가.
@@ -1198,6 +1206,8 @@ void CColorImageProcessingDoc::OnZoomin()
 
 	}
 }
+
+//// 수식 참조해서 했습니다 회전하면서 가로세로 넓어지는 부분 짤라냈는데 커지는 크기만큼 m_outH , m_outW 조정하면 다 나와요
 
 void CColorImageProcessingDoc::OnRotate()
 {
@@ -1306,6 +1316,8 @@ void CColorImageProcessingDoc::OnMove()
 	}
 }
 
+//// 좌우 반전 , 상하 반전 , 원대칭 반전입니다 쉬워요요
+
 void CColorImageProcessingDoc::OnLr()
 {
 	// TODO: 여기에 구현 코드 추가.
@@ -1392,6 +1404,10 @@ void CColorImageProcessingDoc::OnLrud()
 		}
 	}
 }
+
+//// 여기부턴 화소영역처리인데 마스크에 대한 이해가 필요해요
+//// 최소 3x3 부터 더 크게도 가능한데 scale 크기는 한변을 의미하고 홀수만 됩니다.
+//// 마스크 크기에 따라 효과도 점점 커지는데 큰 이미지파일 할때는 큰 마스크 써야합니다 (로딩시간 엄청 깁니다)
 
 void CColorImageProcessingDoc::OnEmboss()
 {
