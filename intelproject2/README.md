@@ -1,6 +1,24 @@
-## 애니메이션 캐릭터를 움직여보는 생성형 ai 사용 프로젝트입니다만
+# 2024 상공회의소 서울기술교육센터
 
-굉장히 많은 자원을 필요로해서 성능을 줄이다보니 그럴듯한 결과물은 없습니다
+# 프로젝트 요약
+```shell
+애니메이션 캐릭터선택 , pose video 선택 , 실행 -> pose video대로 움직이는 animation video 생
+
+```
+# 프로젝트 구성
+```shell
+pose estimation 사용하여 pose video 생성 및 저장 , openvino의 anyone animate 실행
+```
+
+#사용된 기술
+```shell
+mediapipe(hand landmark) , lstm model train
+```
+
+## 애니메이션 캐릭터를 움직여보는 생성형 ai 사용 프로젝트입니다
+```shell
+굉장히 많은 자원을 필요로합니다
+```
 
 
 ## Project ABC
